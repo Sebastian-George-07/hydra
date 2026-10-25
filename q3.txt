@@ -1,3 +1,17 @@
+Enable HTTPS on Apache2 Using a Self-Signed Certificate
+
+Aim
+
+Create a local X.509 certificate and private key, configure Apache TLS on port 443, and verify the HTTPS endpoint.
+
+Software Required
+•	Apache2 from Lab 2
+•	OpenSSL
+•	Firefox
+•	curl
+
+Procedure / Commands
+
 1. Enable Apache's SSL module.
 
 sudo a2enmod ssl
@@ -43,8 +57,18 @@ curl -k https://127.0.0.1
 10. Inspect certificate details and TLS handshake.
 
 sudo openssl x509 -in /etc/apache2/ssl/apache.crt -noout -subject -issuer -dates
-sudo openssl s_client -connect 127.0.0.1:443 -servername localhost
+sudo openssl s_client -connect 127.0.0.1:443 -servername localhost 
 
 11. Open the HTTPS site.
 
 https://127.0.0.1
+
+Expected Output
+•	`apache2ctl configtest` prints `Syntax OK`.
+•	Apache listens on TCP 443; verify with `sudo ss -ltnp | grep ':443'`.
+•	`curl -k` receives the page over HTTPS.
+•	Firefox may show a warning because a self-signed certificate is not trusted by default.
+
+Result
+
+Apache2 serves the site over HTTPS with a self-signed certificate. The connection is encrypted, but the certificate is not publicly trusted.
