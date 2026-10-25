@@ -1,39 +1,40 @@
+Deploy OWASP WebGoat Using Docker
+
+Aim
+Deploy an isolated OWASP WebGoat container and verify its status, published ports and web interface.
+
+Software Required
+•	Kali Linux VM with internet access
+•	Docker Engine (`docker.io`)
+•	Firefox or another browser
+
 Procedure / Commands
-
 1. Update package lists and install Docker.
-
 sudo apt update
 sudo apt install docker.io -y
-
 2. Start Docker and enable it at boot.
-
 sudo systemctl enable --now docker
 sudo systemctl status docker --no-pager
-
 3. Download the WebGoat image.
-
 sudo docker pull webgoat/webgoat
-
 4. Start WebGoat with ports bound to loopback only.
-
 sudo docker run -d --name webgoat \\
   -p 127.0.0.1:8080:8080 \\
   -p 127.0.0.1:9090:9090 \\
   webgoat/webgoat
-
 5. Verify container state and ports.
-
 sudo docker ps
 sudo docker port webgoat
-
 6. If the site does not load, check startup logs.
-
 sudo docker logs --tail 80 webgoat
-
 7. Open WebGoat in Firefox.
-
 http://127.0.0.1:8080/WebGoat
-
 8. Test the endpoint from a terminal.
-
 curl -I http://127.0.0.1:8080/WebGoat
+Expected Output
+•	`docker ps` shows the container with an `Up` status and a loopback port mapping.
+•	The WebGoat login page loads at `http://127.0.0.1:8080/WebGoat` once startup completes.
+•	`curl -I` returns an HTTP response; the status can vary by image version and startup state.
+
+Result
+WebGoat was deployed in Docker and its local endpoint and port mapping were verified.

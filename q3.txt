@@ -8,11 +8,7 @@ sudo install -d -m 700 /etc/apache2/ssl
 
 3. Generate a self-signed certificate with SAN entries for localhost and 127.0.0.1.
 
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \\
-  -keyout /etc/apache2/ssl/apache.key \\
-  -out /etc/apache2/ssl/apache.crt \\
-  -subj '/CN=localhost' \\
-  -addext 'subjectAltName=DNS:localhost,IP:127.0.0.1'
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt -subj '/CN=localhost' -addext 'subjectAltName=DNS:localhost,IP:127.0.0.1'
 
 4. Set restrictive permissions on the private key.
 
@@ -46,8 +42,8 @@ curl -k https://127.0.0.1
 
 10. Inspect certificate details and TLS handshake.
 
-openssl x509 -in /etc/apache2/ssl/apache.crt -noout -subject -issuer -dates
-openssl s_client -connect 127.0.0.1:443 -servername localhost </dev/null
+sudo openssl x509 -in /etc/apache2/ssl/apache.crt -noout -subject -issuer -dates
+sudo openssl s_client -connect 127.0.0.1:443 -servername localhost
 
 11. Open the HTTPS site.
 
