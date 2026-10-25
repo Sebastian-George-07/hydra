@@ -1,0 +1,54 @@
+1. Enable Apache's SSL module.
+
+sudo a2enmod ssl
+
+2. Create a directory for certificate files.
+
+sudo install -d -m 700 /etc/apache2/ssl
+
+3. Generate a self-signed certificate with SAN entries for localhost and 127.0.0.1.
+
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \\
+  -keyout /etc/apache2/ssl/apache.key \\
+  -out /etc/apache2/ssl/apache.crt \\
+  -subj '/CN=localhost' \\
+  -addext 'subjectAltName=DNS:localhost,IP:127.0.0.1'
+
+4. Set restrictive permissions on the private key.
+
+sudo chmod 600 /etc/apache2/ssl/apache.key
+sudo chmod 644 /etc/apache2/ssl/apache.crt
+
+5. Enable the default SSL virtual host.
+
+sudo a2ensite default-ssl
+
+6. Edit the SSL virtual host.
+
+sudo nano /etc/apache2/sites-available/default-ssl.conf
+
+7. In the `<VirtualHost _default_:443>` section, ensure these directives are set.
+
+SSLEngine on
+SSLCertificateFile /etc/apache2/ssl/apache.crt
+SSLCertificateKeyFile /etc/apache2/ssl/apache.key
+
+8. Test configuration and restart Apache.
+
+sudo apache2ctl configtest
+sudo systemctl restart apache2
+sudo systemctl status apache2 --no-pager
+
+9. Test HTTPS. `-k` bypasses trust checks for this local test only.
+
+curl -k -I https://127.0.0.1
+curl -k https://127.0.0.1
+
+10. Inspect certificate details and TLS handshake.
+
+openssl x509 -in /etc/apache2/ssl/apache.crt -noout -subject -issuer -dates
+openssl s_client -connect 127.0.0.1:443 -servername localhost </dev/null
+
+11. Open the HTTPS site.
+
+https://127.0.0.1

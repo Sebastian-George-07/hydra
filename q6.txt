@@ -1,0 +1,33 @@
+A. Confirm WebGoat is running
+
+$ docker ps
+$ curl -I http://127.0.0.1:8080/WebGoat
+
+If it does not respond, start the WebGoat container using the command from Lab 1. Keep it bound to localhost.
+
+B. Install or launch ZAP
+
+$ sudo apt update
+$ sudo apt install -y zaproxy
+
+Launch ZAP from the Applications menu or try:
+
+$ zaproxy
+
+If the package is unavailable, use the instructor-approved ZAP installation.
+
+C. Set the target
+
+1. Open ZAP and choose a temporary session unless instructed otherwise.
+2. In Quick Start, select Manual Explore or Automated Scan.
+3. Set the target to http://127.0.0.1:8080/WebGoat.
+4. Confirm the target is localhost. Do not scan a public website or third-party IP.
+D. Run a baseline assessment
+Use ZAP Quick Start > Automated Scan only against local WebGoat. If the class requires passive-only testing, browse through ZAP and review passive alerts without active attacks.
+E. Review alerts and save evidence
+In the Alerts tab, record alert name, risk, affected URL, evidence, and recommended fix. An alert is not automatically proof of exploitability; inspect its evidence.
+Check whether the optional report exists:
+
+$ ls -l zap-baseline-report.html
+
+Write each finding as: Finding; Risk; URL/evidence; Impact; Remediation; Retest. Never include secrets or session tokens.

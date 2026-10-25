@@ -1,0 +1,32 @@
+Procedure / Commands
+
+1. Install Nmap.
+
+sudo apt update
+sudo apt install nmap -y
+
+2. Check Kali interfaces and routes.
+
+ip -br addr
+ip route
+
+3. Discover the authorized target host. Replace the placeholder.
+
+nmap -sn <TARGET_IP>
+
+4. Scan common TCP ports on that target.
+
+nmap <TARGET_IP>
+
+5. Identify services and versions.
+
+nmap -sV <TARGET_IP>
+
+6. Scan selected ports only.
+
+nmap -sV -p 22,80,443 <TARGET_IP>
+
+7. Save output for the report.
+
+nmap -sV -oN nmap-results.txt <TARGET_IP>
+cat nmap-results.txt

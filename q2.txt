@@ -1,0 +1,38 @@
+1. Install Apache2.
+
+sudo apt update
+sudo apt install apache2 -y
+
+2. Start the service and enable it at boot.
+
+sudo systemctl enable --now apache2
+sudo systemctl status apache2 --no-pager
+
+3. Create or edit the web page.
+
+sudo nano /var/www/html/index.html
+
+4. Enter this HTML, then save the file.
+
+<!DOCTYPE html>
+<html>
+<head><title>Cybersecurity Lab</title></head>
+<body>
+  <h1>My Apache2 Lab Website</h1>
+  <p>This page is hosted on Kali Linux.</p>
+</body>
+</html>
+
+5. Test Apache configuration and reload.
+
+sudo apache2ctl configtest
+sudo systemctl reload apache2
+
+6. Test the response and content.
+
+curl -I http://127.0.0.1
+curl http://127.0.0.1
+
+7. Open in Firefox.
+
+http://127.0.0.1
