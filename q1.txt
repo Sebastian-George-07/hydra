@@ -55,3 +55,29 @@ Expected Output
 
 Result
 WebGoat was deployed in Docker and its local endpoint and port mapping were verified.
+
+
+
+
+
+
+
+
+
+1. What is Docker?
+Answer: Docker is a platform used to package and run applications in containers.
+2. What is a container?
+Answer: A container is an isolated environment in which an application runs.
+3. What is a Docker image?
+Answer: An image is a template used to create a container.
+4. What is OWASP WebGoat?
+Answer: WebGoat is an intentionally vulnerable web application used for security training.
+5. What is the difference between an image and a container?
+Answer: An image is the template. A container is the running instance.
+6. Which command lists running containers?
+Answer: docker ps
+7. Which command downloads a Docker image?
+Answer: docker pull IMAGE_NAME
+8. Why do we use WebGoat?
+Answer: To learn web application vulnerabilities safely in a training environment.
+

@@ -60,3 +60,26 @@ Expected Output
 Result
 
 Apache2 was installed and configured to serve a custom HTML page over HTTP on port 80.
+
+
+
+
+
+
+1. What is Apache2?
+Answer: Apache2 is web server software used to serve websites.
+2. What is a web server?
+Answer: A web server receives HTTP or HTTPS requests and returns web content.
+3. What is HTTP?
+Answer: HTTP stands for Hypertext Transfer Protocol.
+4. What is the default Apache website directory on Ubuntu or Kali?
+Answer: /var/www/html/
+5. What is the default homepage filename?
+Answer: index.html
+6. Which command starts Apache2?
+Answer: sudo systemctl start apache2
+7. How do you check Apache2 status?
+Answer: sudo systemctl status apache2
+8. What is localhost?
+Answer: It refers to the same computer, usually addressed as 127.0.0.1.
+

@@ -72,3 +72,26 @@ Expected Output
 Result
 
 Apache2 serves the site over HTTPS with a self-signed certificate. The connection is encrypted, but the certificate is not publicly trusted.
+
+
+
+
+
+
+
+1. What is HTTPS?
+Answer: HTTPS is HTTP secured using TLS encryption.
+2. What is the difference between HTTP and HTTPS?
+Answer: HTTPS protects data in transit using TLS. HTTP does not provide that TLS protection.
+3. What is SSL or TLS?
+Answer: TLS is a protocol that provides encryption and integrity for network communication. SSL is its older predecessor.
+4. What is a digital certificate?
+Answer: It helps establish a website's identity and contains its public key and related information.
+5. What is a self-signed certificate?
+Answer: A certificate signed by its own creator rather than by a trusted certificate authority.
+6. Is a self-signed certificate trusted automatically by browsers?
+Answer: Usually not. Browsers normally show a warning unless the certificate is explicitly trusted.
+7. Which port does HTTPS commonly use?
+Answer: Port 443.
+8. Why do we use a private key?
+Answer: It is used in cryptographic operations and must be kept secret.

@@ -50,3 +50,28 @@ Expected Output
 
 Result
 Network and service enumeration was performed on an authorized lab target and the results were saved for review.
+
+
+
+
+
+
+
+
+1. What is Nmap?
+Answer: Nmap is a tool used to discover hosts and scan network services.
+2. What is a port?
+Answer: A port is a logical endpoint used by network applications.
+3. What is an open port?
+Answer: An open port indicates that a service is listening and accepting connections.
+4. What is service enumeration?
+Answer: Identifying services and, where possible, their versions on a target system.
+5. Which command scans a target IP?
+Answer: nmap TARGET_IP
+6. What does -sV do in Nmap?
+Answer: It attempts to identify service versions.
+7. What does -p mean in Nmap?
+Answer: It specifies which ports to scan.
+8. What is the difference between TCP and UDP?
+Answer: TCP provides connection-oriented, reliable delivery. UDP sends datagrams without TCP's delivery guarantees.
+

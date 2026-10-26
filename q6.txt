@@ -53,3 +53,27 @@ Expected Output
 
 Result
 ZAP was used to assess the local training app and findings were documented with risk, evidence, and remediation.
+
+
+
+
+
+
+
+1. What is OWASP ZAP?
+Answer: OWASP ZAP is a tool for testing web application security.
+2. What is a vulnerability?
+Answer: A weakness that could be exploited to affect a system's security.
+3. What is vulnerability assessment?
+Answer: The process of identifying, evaluating, and prioritizing security weaknesses.
+4. What is passive scanning?
+Answer: Examining observed requests and responses for potential security issues without deliberately attacking the target.
+5. What is active scanning?
+Answer: Sending test requests or payloads to identify vulnerabilities. It should only be done on authorized targets.
+6. What is a ZAP alert?
+Answer: A notification about a possible security issue found during testing.
+7. Does every ZAP alert prove a vulnerability exists?
+Answer: No. The evidence should be reviewed and the finding validated.
+8. What should a vulnerability report contain?
+Answer: The finding, risk level, affected URL, evidence, impact, and recommended fix.
+

@@ -98,3 +98,28 @@ Expected Output
 
 Result
 ARP spoofing was demonstrated only in an isolated, authorized virtual network; observations and mitigations were recorded.
+
+
+
+
+
+
+
+
+1. What is ARP?
+Answer: ARP stands for Address Resolution Protocol. It maps an IPv4 address to a MAC address on a local network.
+2. What is a MAC address?
+Answer: A hardware or interface address used for communication on a local network.
+3. What is ARP spoofing?
+Answer: An attack in which forged ARP messages cause devices to store incorrect IP-to-MAC mappings.
+4. What is a MITM attack?
+Answer: A man-in-the-middle attack occurs when an attacker positions themselves between communicating parties.
+5. What is arpspoof used for?
+Answer: It sends forged ARP messages in an authorized lab to demonstrate ARP cache poisoning.
+6. What is tcpdump?
+Answer: A command-line tool used to capture and inspect network packets.
+7. Which command displays the neighbor or ARP cache on Linux?
+Answer: ip neigh
+8. How can ARP spoofing risks be reduced?
+Answer: Use network segmentation, monitoring, switch protections such as Dynamic ARP Inspection where supported, and HTTPS or TLS for application traffic.
+
