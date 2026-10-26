@@ -15,48 +15,80 @@ Procedure / Commands
 A. Build the isolated network
 1. Power off VMs. In VirtualBox > VM Settings > Network, select Host-only Adapter for each lab VM and choose the same Host-only network.
 2. Do not use Bridged Adapter. Boot both VMs and run on each:
-$ ip -br addr
-$ ip route
-Record attacker IP, victim IP, interface name (for example eth0 or enp0s3), and gateway if present. Do not assume example IPs are yours.
+Phase 1: Kali Linux — Copy and paste
 
-B. Install tools on Kali
-$ sudo apt update
-$ sudo apt install -y dsniff tcpdump wireshark
-If you do not have a GUI, tcpdump is sufficient for observing ARP.
+Step 1: Update Kali and install all required tools
+sudo apt update && sudo apt install -y dsniff tcpdump wireshark curl python3
 
-C. Record normal ARP mappings
-On Kali:
-$ ip neigh
-$ ip route
-On the victim, run ip neigh too. Write down the gateway/victim IP-to-MAC mapping before the demonstration.
-From Kali, replace VICTIM_IP with the victim's actual Host-only IP:
-$ curl http://VICTIM_IP:8080/
-Expected page text: Lab demo page - no secrets here.
+Step 2: Check IP addresses
+ip -br addr
 
-D. Observe ARP packets
-In another terminal, check:
-$ wireshark
-Record what ARP packets and neighbor entries look like before the test.
+Step 3: Check the routing table
+ip route
 
-F. Controlled ARP-spoofing demonstration
-Proceed only after the instructor confirms the Host-only lab and the IP addresses of your own VMs. Open two Kali terminals.
-Terminal 1: replace LAB_INTERFACE, VICTIM_IP and GATEWAY_IP with your lab values:
-$ sudo arpspoof -i LAB_INTERFACE -t VICTIM_IP GATEWAY_IP
-Terminal 2: run the reverse direction:
-$ sudo arpspoof -i LAB_INTERFACE -t GATEWAY_IP VICTIM_IP
-These commands send forged ARP replies. Keep them running only briefly and observe ARP packets using:
-$ wireshark
-On the victim, check the neighbor cache:
-$ ip neigh
-Compare the gateway's MAC mapping with your earlier notes. Do not capture passwords, cookies, tokens, or real user sessions.
+Step 4: Check ARP/neighbor entries
+ip neigh
 
-G. Stop and restore
-Press Ctrl+C in both arpspoof terminals first. Then, on both VMs, refresh neighbor entries:
-$ sudo ip neigh flush all
-Generate fresh traffic (replace GATEWAY_IP if you have a gateway):
-$ ping -c 2 GATEWAY_IP
-Check the table again:
-$ ip neigh
+Phase 2: Victim Linux — Prepare the lab page
+Run these commands on your victim VM, one at a time.
+
+Step 5: Create the lab directory
+mkdir -p ~/arp-lab
+
+Step 6: Create the sample page
+echo 'Lab demo page - no secrets here.' > ~/arp-lab/index.html
+
+Step 7: Enter the directory
+cd ~/arp-lab
+
+Step 8: Start the HTTP server
+python3 -m http.server 8080 --bind 0.0.0.0
+
+Keep this terminal open.
+
+Phase 3: Kali Linux — Test the connection
+
+Step 9: Test connectivity
+Replace VICTIM_IP with your victim VM's actual IP address.
+ping -c 3 VICTIM_IP
+
+Step 10: Request the sample page
+curl http://VICTIM_IP:8080/
+
+Expected output:
+Lab demo page - no secrets here.
+
+Step 11: Check neighbor entries
+ip neigh
+
+Phase 4: Capture ARP packets
+Step 12: Open Wireshark
+wireshark
+
+Select the Host-only network interface and start capturing.
+
+Step 13: Apply the display filter
+arp
+
+Step 14: Generate traffic
+ping -c 3 VICTIM_IP
+
+Step 15: Save the capture
+Stop the capture and save it as arp-lab.pcapng.
+
+Phase 5: Restore and verify
+
+Step 16: Stop the HTTP server
+Press Ctrl+C in the victim terminal.
+
+Step 17: Refresh Kali's neighbor cache
+sudo ip neigh flush all
+
+Step 18: Check the neighbor table
+ip neigh
+
+Step 19: Verify your saved capture
+Open the file manager and confirm that arp-lab.pcapng exists.
 
 Expected Output
 ●	Before the test, ip neigh shows learned IP-to-MAC mappings.
